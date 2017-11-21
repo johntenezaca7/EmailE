@@ -1,12 +1,18 @@
 const express = require('express');
+const mongoose = require('mongoose');
+require('./services/passport'); 
+const keys = require('./config/keys');
+
+mongoose.connect(keys.mongoURI);
+
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send({hi: 'person'});
-});
+require('./routes/authRoutes')(app);
 
-//Testing
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log('Server is running at port : ' + PORT);
 });
+
+//To run server run "npm run dev"
